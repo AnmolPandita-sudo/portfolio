@@ -16,6 +16,16 @@ export default function About({ pageInfo }: Props) {
       <p className="absolute top-24 uppercase tracking-[20px] text-gray-500 text-xl md:text-2xl">
         About
       </p>
+      <div className="space-y-5 md:space-y-10 px-0 md:px-10 md:mt-20">
+        <p className="text-xl md:text-3xl xl:text-4xl font-semibold">
+          Here is a{" "}
+          <span className=" underline decoration-darkGreen/50">little</span>{" "}
+          background
+        </p>
+        <p className="text-sm md:text-lg lg:text-lg text-justify">
+          {pageInfo?.backgroundInformation}
+        </p>
+      </div>
 
       <motion.img
         initial={{
@@ -30,20 +40,10 @@ export default function About({ pageInfo }: Props) {
           opacity: 1,
         }}
         viewport={{ once: true }}
-        className=" -mb-24 md:mb-0 flex-shrink-0 w-52 h-52 rounded-full object-cover md:rounded-lg md:w-64 md:h-64 xl:w-[400px] xl:h-[400px]"
+        className=" -mb-24 -md:mb-3 flex-shrink-0 w-52 h-52 rounded-full object-cover md:rounded-lg md:w-72 md:h-72 xl:w-[400px] xl:h-[500px]"
         src={urlFor(pageInfo?.profilePic).url()}
         alt=""
       />
-      <div className="space-y-5 md:space-y-10 px-0 md:px-10 md:mt-20">
-        <p className="text-xl md:text-3xl xl:text-4xl font-semibold">
-          Here is a{" "}
-          <span className=" underline decoration-darkGreen/50">little</span>{" "}
-          background
-        </p>
-        <p className="text-sm md:text-lg lg:text-lg text-justify">
-          {pageInfo?.backgroundInformation}
-        </p>
-      </div>
     </motion.div>
   );
 }

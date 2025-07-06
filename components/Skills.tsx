@@ -1,33 +1,147 @@
 "use client";
 import { motion } from "framer-motion";
 import { Skill as SkillType } from "../typings";
-import Skill from "./Skill";
+import { urlFor } from "../sanity";
 
 type Props = { skills: SkillType[] };
 
 export default function Skills({ skills }: Props) {
+  const getSkillColor = (progress: number) => {
+    if (progress >= 90) return "from-accent-400 to-accent-600";
+    if (progress >= 80) return "from-primary-400 to-primary-600";
+    if (progress >= 70) return "from-data-purple to-purple-600";
+    if (progress >= 60) return "from-data-orange to-orange-600";
+    return "from-neural-400 to-neural-600";
+  };
+
+  const getSkillLevel = (progress: number) => {
+    if (progress >= 90) return "Expert";
+    if (progress >= 80) return "Advanced";
+    if (progress >= 70) return "Proficient";
+    if (progress >= 60) return "Intermediate";
+    return "Learning";
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       transition={{ duration: 1.5 }}
-      className="h-screen flex relative flex-col text-center md:text-left xl:flex-row max-w-[2000px] xl:px-10 min-h-screen justify-center xl:space-y-0 mx-auto items-center"
+      className="min-h-screen flex relative flex-row text-center mx-auto items-center justify-center px-4 py-20"
     >
-      <h3 className="absolute top-28 uppercase tracking-[20px] text-gray-500 text-xl md:text-2xl">
-        Skills
-      </h3>
-      <h3 className="absolute top-40 uppercase tracking-[3px] text-gray-500 text-sm">
-        Hover over a skill for current proficiency
-      </h3>
+      {/* Background elements */}
+      <div className="absolute inset-0 analytics-gradient opacity-20"></div>
+      <div className="absolute inset-0 data-grid-bg opacity-10"></div>
+      
+      <div className="relative z-10 w-full">
+        <div className="text-center mb-10">
+          <h3 className="section-title mb-3">Technical Arsenal</h3>
+          <div className="w-24 h-1 bg-gradient-to-r from-primary-500 to-accent-500 mx-auto rounded-full mb-4"></div>
+          <p className="text-neural-300 text-lg font-mono">
+            Hover or click over skills to see proficiency levels
+          </p>
+        </div>
 
-      <div className="grid grid-cols-4 md:grid-cols-8 gap-4 md:gap-0 md:space-y-5">
-        {skills?.slice(0, skills.length / 2).map((skill) => (
-          <Skill key={skill._id} skill={skill} />
-        ))}
+        {/* Skills Grid Container */}
+        <div className="w-full max-w-7xl mx-auto">
+          <div className="grid grid-cols-6 lg:grid-cols-8 xl:grid-cols-12 gap-4 md:gap-6 place-items-center">
+            {skills?.map((skill, index) => (
+              <motion.div
+                key={skill._id}
+                initial={{ 
+                  scale: 0,
+                  opacity: 0,
+                  rotateY: 180
+                }}
+                whileInView={{ 
+                  scale: 1,
+                  opacity: 1,
+                  rotateY: 0
+                }}
+                transition={{ 
+                  duration: 0.6,
+                  delay: index * 0.05,
+                  type: "spring",
+                  stiffness: 100
+                }}
+                className="group relative flex flex-col items-center cursor-pointer self-center"
+              >
+                <div className="relative">
+                  {/* Skill icon with neural glow effect */}
+                  <div className="relative neural-glow">
+                    <motion.img
+                      whileHover={{ scale: 1.1, rotateY: 15 }}
+                      className="rounded-2xl border-2 border-neural-600/50 object-cover w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 xl:w-28 xl:h-28 filter group-hover:brightness-110 transition-all duration-300 ease-in-out shadow-lg group-hover:shadow-xl"
+                      src={urlFor(skill?.image).url()}
+                      alt={skill.title}
+                    />
+                    
+                    {/* Progress ring overlay */}
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-in-out">
+                      <div className="w-full h-full rounded-2xl bg-gradient-to-br from-neural-900/90 to-neural-800/90 backdrop-blur-sm flex flex-col items-center justify-center border-2 border-primary-500/50">
+                        <div className={`text-lg md:text-xl lg:text-2xl font-bold bg-gradient-to-r ${getSkillColor(skill.progress)} bg-clip-text text-transparent font-mono`}>
+                          {skill.progress}%
+                        </div>
+                        <div className="text-xs text-primary-300 font-medium mt-1">
+                          {getSkillLevel(skill.progress)}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
-        {skills?.slice(skills.length / 2, skills.length).map((skill) => (
-          <Skill key={skill._id} skill={skill} directionLeft />
-        ))}
+                  {/* Animated progress bar */}
+                  {/* <motion.div 
+                    className="absolute -bottom-2 left-0 right-0 h-1 bg-neural-700 rounded-full overflow-hidden"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ delay: index * 0.05 + 0.5 }}
+                  >
+                    <motion.div
+                      className={`h-full bg-gradient-to-r ${getSkillColor(skill.progress)} rounded-full`}
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${skill.progress}%` }}
+                      transition={{ 
+                        duration: 1.5, 
+                        delay: index * 0.05 + 0.7,
+                        ease: "easeOut"
+                      }}
+                    />
+                  </motion.div> */}
+                </div>
+                
+                {/* Skill Title */}
+                <div className="mt-2">
+                  <p className="text-xs sm:text-sm md:text-base text-neural-200 font-medium text-center leading-tight font-mono group-hover:text-primary-300 transition-colors duration-300">
+                    {skill.title}
+                  </p>
+                </div>
+
+                {/* Floating particles effect on hover */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                  {[...Array(3)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      className="absolute w-1 h-1 bg-primary-400 rounded-full"
+                      style={{
+                        top: `${20 + i * 20}%`,
+                        left: `${30 + i * 15}%`,
+                      }}
+                      animate={{
+                        y: [-10, -30, -10],
+                        opacity: [0, 1, 0],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        delay: i * 0.2,
+                      }}
+                    />
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
       </div>
     </motion.div>
   );

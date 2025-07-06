@@ -13,12 +13,13 @@ export default function WorkExperience({ experiences }: Props) {
       transition={{ duration: 1.5 }}
       className="h-screen  flex relative overflow-hidden flex-row max-w-full  mx-auto justify-center text-center "
     >
-      <h3 className="absolute top-24 uppercase tracking-[20px] text-gray-500 text-xl md:text-2xl">
-        Experience
-      </h3>
+      <div className="absolute top-24 left-1/2 transform -translate-x-1/2">
+        <h1 className=" text-sm md:text-3xl lg:text-4xl  section-title text-center uppercase tracking-[16px] ml-5 ">EXPERIENCE</h1>
+        <div className="w-44 h-1 bg-gradient-to-r from-primary-500 to-accent-500 mx-auto mt-2 rounded-full"></div>
+      </div>
 
       {/* Experience cards */}
-      <div className="w-full h-4/5 md:h-5/6  flex content-center  overflow-x-scroll p-10 space-x-5 snap-x snap-center snap-mandatory scrollbar-thin scrollbar-track-[#2d2c2c] scrollbar-thumb-darkGreen/80 mt-28 ">
+      <div className="w-full h-4/5 md:h-5/6  flex content-center  overflow-x-scroll p-10 space-x-5 snap-x snap-center snap-mandatory scrollbar-thin scrollbar-track-[#2d2c2c] scrollbar-thumb-accent-600/80 mt-28 ">
         {experiences?.map((experience) => (
           <ExperienceCard key={experience._id} experience={experience} />
         ))}

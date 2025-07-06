@@ -1,144 +1,83 @@
 "use client";
 import { motion } from "framer-motion";
 import { Skill as SkillType } from "../typings";
+import { urlFor } from "../sanity";
 
 type Props = { skills: SkillType[] };
 
 export default function Skills({ skills }: Props) {
-  // Group skills by category based on common patterns
-  const groupSkills = (skills: SkillType[]) => {
-    const frontend = skills.filter(skill => 
-      ['react', 'javascript', 'typescript', 'html', 'css', 'tailwind', 'next', 'vue', 'angular'].some(tech => 
-        skill.title.toLowerCase().includes(tech)
-      )
-    );
-    
-    const backend = skills.filter(skill => 
-      ['node', 'python', 'java', 'php', 'express', 'django', 'spring', 'laravel'].some(tech => 
-        skill.title.toLowerCase().includes(tech)
-      )
-    );
-    
-    const database = skills.filter(skill => 
-      ['mongodb', 'mysql', 'postgresql', 'firebase', 'sql', 'redis'].some(tech => 
-        skill.title.toLowerCase().includes(tech)
-      )
-    );
-    
-    const tools = skills.filter(skill => 
-      ['git', 'docker', 'aws', 'figma', 'photoshop', 'vscode'].some(tech => 
-        skill.title.toLowerCase().includes(tech)
-      )
-    );
-
-    // Remaining skills that don't fit into above categories
-    const other = skills.filter(skill => 
-      ![...frontend, ...backend, ...database, ...tools].includes(skill)
-    );
-
-    return { frontend, backend, database, tools, other };
-  };
-
-  const skillGroups = groupSkills(skills);
-
-  const SkillGroup = ({ title, skills, delay = 0 }: { title: string; skills: SkillType[]; delay?: number }) => {
-    if (skills.length === 0) return null;
-    
-    return (
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay }}
-        className="mb-8"
-      >
-        <h4 className="text-lg font-semibold text-darkGreen mb-4 uppercase tracking-wider">
-          {title}
-        </h4>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-          {skills.map((skill) => (
-            <motion.div
-              key={skill._id}
-              whileHover={{ scale: 1.05 }}
-              className="group bg-gray-800/50 rounded-lg p-3 hover:bg-gray-700/50 transition-all duration-300"
-            >
-              <div className="flex items-center space-x-3">
-                <div className="relative">
-                  <img
-                    src={skill.image ? `https://cdn.sanity.io/images/wbra8tq2/production/${skill.image.asset._ref.replace('image-', '').replace('-jpg', '.jpg').replace('-png', '.png')}` : '/placeholder-skill.png'}
-                    alt={skill.title}
-                    className="w-8 h-8 rounded-full object-cover"
-                  />
-                  <div className="absolute -top-1 -right-1 bg-darkGreen text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
-                    {skill.progress}
-                  </div>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-white truncate">
-                    {skill.title}
-                  </p>
-                  <div className="w-full bg-gray-600 rounded-full h-1.5 mt-1">
-                    <div 
-                      className="bg-darkGreen h-1.5 rounded-full transition-all duration-500"
-                      style={{ width: `${skill.progress}%` }}
-                    />
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
-    );
-  };
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       transition={{ duration: 1.5 }}
-      className="min-h-screen flex relative flex-col text-center md:text-left max-w-7xl mx-auto px-6 py-20"
+      className="h-screen flex relative flex-col text-center md:text-left xl:flex-row max-w-[2000px] xl:px-10 min-h-screen justify-center xl:space-y-0 mx-auto items-center"
     >
-      <div className="text-center mb-16">
-        <h3 className="uppercase tracking-[20px] text-gray-500 text-2xl md:text-3xl mb-4">
-          Skills
-        </h3>
-        <p className="text-gray-400 text-sm md:text-base max-w-2xl mx-auto">
-          • Proficiency levels shown as percentages
-          • Hover over cards for enhanced view
-          • Organized by technology stack
-        </p>
+      <h3 className="absolute top-24 uppercase tracking-[20px] text-gray-500 text-xl md:text-2xl">
+        Skills
+      </h3>
+      <h3 className="absolute top-36 uppercase tracking-[3px] text-gray-500 text-sm">
+        Hover over a skill for current proficiency
+      </h3>
+
+      <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-5 mt-20">
+        {skills?.map((skill, index) => (
+          <motion.div
+            key={skill._id}
+            initial={{ 
+              x: index % 2 === 0 ? -200 : 200, 
+              opacity: 0 
+            }}
+            whileInView={{ 
+              opacity: 1, 
+              x: 0 
+            }}
+            transition={{ 
+              duration: 1,
+              delay: index * 0.1
+            }}
+            className="group relative flex cursor-pointer"
+          >
+            <motion.img
+              className="rounded-full border border-gray-500 object-cover w-16 h-16 md:w-20 md:h-20 xl:w-24 xl:h-24 filter group-hover:grayscale transition duration-300 ease-in-out"
+              src={urlFor(skill?.image).url()}
+              alt={skill.title}
+            />
+            <div className="absolute opacity-0 group-hover:opacity-80 transition duration-300 ease-in-out group-hover:bg-white w-16 h-16 md:w-20 md:h-20 xl:w-24 xl:h-24 rounded-full z-0">
+              <div className="flex items-center justify-center h-full">
+                <p className="text-lg md:text-xl xl:text-2xl font-bold text-black opacity-100">
+                  {skill.progress}%
+                </p>
+              </div>
+            </div>
+            <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition duration-300 ease-in-out">
+              <p className="text-xs md:text-sm text-gray-300 font-medium whitespace-nowrap">
+                {skill.title}
+              </p>
+            </div>
+          </motion.div>
+        ))}
       </div>
 
-      <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
-        <div>
-          <SkillGroup title="Frontend Development" skills={skillGroups.frontend} delay={0.1} />
-          <SkillGroup title="Backend Development" skills={skillGroups.backend} delay={0.3} />
-        </div>
-        <div>
-          <SkillGroup title="Database & Storage" skills={skillGroups.database} delay={0.2} />
-          <SkillGroup title="Tools & Technologies" skills={skillGroups.tools} delay={0.4} />
-          <SkillGroup title="Other Skills" skills={skillGroups.other} delay={0.5} />
-        </div>
-      </div>
-
+      {/* Progress Legend */}
       <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 0.6 }}
-        className="mt-12 text-center"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 0.5 }}
+        className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
       >
-        <div className="inline-flex items-center space-x-4 bg-gray-800/30 rounded-full px-6 py-3">
+        <div className="flex items-center space-x-6 bg-gray-800/50 backdrop-blur-sm rounded-full px-6 py-3">
           <div className="flex items-center space-x-2">
             <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-            <span className="text-sm text-gray-300">Expert (80%+)</span>
+            <span className="text-xs text-gray-300">Expert (80%+)</span>
           </div>
           <div className="flex items-center space-x-2">
             <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-            <span className="text-sm text-gray-300">Proficient (60-79%)</span>
+            <span className="text-xs text-gray-300">Proficient (60-79%)</span>
           </div>
           <div className="flex items-center space-x-2">
             <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-            <span className="text-sm text-gray-300">Learning (40-59%)</span>
+            <span className="text-xs text-gray-300">Learning (40-59%)</span>
           </div>
         </div>
       </motion.div>

@@ -158,13 +158,7 @@ export default function Projects({ projects }: Props) {
                       whileTap={{ scale: 0.95 }}
                       className="p-3 border border-neural-600/50 hover:border-primary-400/50 rounded-xl transition-all duration-300 hover:bg-primary-500/10 group/code"
                     >
-<<<<<<< HEAD
-                      <a href={project.linkToBuild} target="_blank" rel="noopener noreferrer">
-                        <CodeBracketIcon className="w-4 h-4 text-neural-400 group-hover/code:text-primary-400 transition-colors duration-300" />
-                      </a>
-=======
                       <CodeBracketIcon className="w-4 h-4 text-neural-400 group-hover/code:text-primary-400 transition-colors duration-300" />
->>>>>>> c42810109baddd901e8b383737fde41537b08dcb
                     </motion.button>
                   </div>
                 </div>

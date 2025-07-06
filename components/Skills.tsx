@@ -27,40 +27,24 @@ export default function Skills({ skills }: Props) {
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       transition={{ duration: 1.5 }}
-<<<<<<< HEAD
-      className="min-h-screen flex relative flex-row text-center mx-auto items-center justify-center px-4 py-20"
-=======
       className="min-h-screen flex relative flex-col text-center max-w-[2000px] mx-auto items-center justify-center px-4 md:px-10 py-20"
->>>>>>> c42810109baddd901e8b383737fde41537b08dcb
     >
       {/* Background elements */}
       <div className="absolute inset-0 analytics-gradient opacity-20"></div>
       <div className="absolute inset-0 data-grid-bg opacity-10"></div>
       
       <div className="relative z-10 w-full">
-<<<<<<< HEAD
-        <div className="text-center mb-10">
-          <h3 className="section-title mb-3">Technical Arsenal</h3>
-          <div className="w-24 h-1 bg-gradient-to-r from-primary-500 to-accent-500 mx-auto rounded-full mb-4"></div>
-          <p className="text-neural-300 text-lg font-mono">
-            Hover or click over skills to see proficiency levels
-=======
         <div className="text-center mb-16">
           <h3 className="section-title mb-4">Technical Arsenal</h3>
           <div className="w-24 h-1 bg-gradient-to-r from-primary-500 to-accent-500 mx-auto rounded-full mb-6"></div>
           <p className="text-neural-300 text-lg font-mono">
             Hover over skills to see proficiency levels
->>>>>>> c42810109baddd901e8b383737fde41537b08dcb
           </p>
         </div>
 
         {/* Skills Grid Container */}
         <div className="w-full max-w-7xl mx-auto">
-<<<<<<< HEAD
-          <div className="grid grid-cols-6 lg:grid-cols-8 xl:grid-cols-12 gap-4 md:gap-6 place-items-center">
-=======
           <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-4 md:gap-6 lg:gap-8 place-items-center">
->>>>>>> c42810109baddd901e8b383737fde41537b08dcb
             {skills?.map((skill, index) => (
               <motion.div
                 key={skill._id}
@@ -80,11 +64,7 @@ export default function Skills({ skills }: Props) {
                   type: "spring",
                   stiffness: 100
                 }}
-<<<<<<< HEAD
-                className="group relative flex flex-col items-center cursor-pointer self-center"
-=======
                 className="group relative flex flex-col items-center cursor-pointer"
->>>>>>> c42810109baddd901e8b383737fde41537b08dcb
               >
                 <div className="relative">
                   {/* Skill icon with neural glow effect */}
@@ -110,11 +90,7 @@ export default function Skills({ skills }: Props) {
                   </div>
 
                   {/* Animated progress bar */}
-<<<<<<< HEAD
-                  {/* <motion.div 
-=======
                   <motion.div 
->>>>>>> c42810109baddd901e8b383737fde41537b08dcb
                     className="absolute -bottom-2 left-0 right-0 h-1 bg-neural-700 rounded-full overflow-hidden"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
@@ -130,19 +106,11 @@ export default function Skills({ skills }: Props) {
                         ease: "easeOut"
                       }}
                     />
-<<<<<<< HEAD
-                  </motion.div> */}
-                </div>
-                
-                {/* Skill Title */}
-                <div className="mt-2">
-=======
                   </motion.div>
                 </div>
                 
                 {/* Skill Title */}
                 <div className="mt-4 md:mt-6">
->>>>>>> c42810109baddd901e8b383737fde41537b08dcb
                   <p className="text-xs sm:text-sm md:text-base text-neural-200 font-medium text-center leading-tight font-mono group-hover:text-primary-300 transition-colors duration-300">
                     {skill.title}
                   </p>
@@ -174,8 +142,6 @@ export default function Skills({ skills }: Props) {
             ))}
           </div>
         </div>
-<<<<<<< HEAD
-=======
 
         {/* Skills Legend */}
         <motion.div
@@ -203,7 +169,6 @@ export default function Skills({ skills }: Props) {
             </div>
           </div>
         </motion.div>
->>>>>>> c42810109baddd901e8b383737fde41537b08dcb
       </div>
     </motion.div>
   );

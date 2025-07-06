@@ -16,6 +16,7 @@ import ContactMe from "../components/ContactMe";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { BsFillArrowUpCircleFill } from "react-icons/bs";
+import { motion } from "framer-motion";
 
 type Props = {
   pageInfo: PageInfo;

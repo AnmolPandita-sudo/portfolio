@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { urlFor } from "../sanity";
 import { PageInfo } from "../typings";
 
@@ -90,6 +91,8 @@ export default function About({ pageInfo }: Props) {
             className="flex-shrink-0 w-64 h-64 rounded-2xl object-cover md:w-80 md:h-80 xl:w-[400px] xl:h-[500px] border-2 border-primary-500/30 shadow-2xl shadow-primary-500/20"
             src={urlFor(pageInfo?.profilePic).url()}
             alt="About"
+            width={400}
+            height={500}
           />
           
           {/* Floating code snippets */}

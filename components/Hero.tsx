@@ -28,7 +28,11 @@ export default function Hero({ pageInfo }: Props) {
       <div className="absolute inset-0 data-grid-bg opacity-20"></div>
       
       {/* Neural network background */}
+<<<<<<< HEAD
       {/* <div className="absolute inset-0 bg-neural-network opacity-30"></div> */}
+=======
+      <div className="absolute inset-0 bg-neural-network opacity-30"></div>
+>>>>>>> c42810109baddd901e8b383737fde41537b08dcb
       
       <BackgroundCircles />
 
@@ -57,7 +61,11 @@ export default function Hero({ pageInfo }: Props) {
         </div>
 
         {/* Main heading with gradient text */}
+<<<<<<< HEAD
         <h1 className="text-xl md:text-3xl lg:text-5xl font-bold px-10 font-display">
+=======
+        <h1 className="text-3xl md:text-5xl lg:text-7xl font-bold px-10 font-display">
+>>>>>>> c42810109baddd901e8b383737fde41537b08dcb
           <span className="bg-gradient-to-r from-primary-300 via-accent-300 to-data-purple bg-clip-text text-transparent">
             {text}
           </span>
@@ -65,6 +73,7 @@ export default function Hero({ pageInfo }: Props) {
         </h1>
 
         {/* Data metrics display */}
+<<<<<<< HEAD
         <div className="flex flex-wrap justify-center gap-6 mt-4 px-4">
           <div className="text-center">
             <div className="metric-display">100+</div>
@@ -76,12 +85,29 @@ export default function Hero({ pageInfo }: Props) {
           </div>
           <div className="text-center">
             <div className="metric-display">90+%</div>
+=======
+        <div className="flex flex-wrap justify-center gap-6 mt-8 px-4">
+          <div className="text-center">
+            <div className="metric-display">500+</div>
+            <div className="text-neural-400 text-sm font-mono">Projects Analyzed</div>
+          </div>
+          <div className="text-center">
+            <div className="metric-display">1M+</div>
+            <div className="text-neural-400 text-sm font-mono">Data Points</div>
+          </div>
+          <div className="text-center">
+            <div className="metric-display">95%</div>
+>>>>>>> c42810109baddd901e8b383737fde41537b08dcb
             <div className="text-neural-400 text-sm font-mono">Accuracy Rate</div>
           </div>
         </div>
 
         {/* Navigation buttons */}
+<<<<<<< HEAD
         <div className="pt-10 -mb-10 space-x-3 flex flex-wrap justify-center gap-3 md:text-lg text-sm">
+=======
+        <div className="pt-16 -mb-20 space-x-3 flex flex-wrap justify-center gap-3">
+>>>>>>> c42810109baddd901e8b383737fde41537b08dcb
           <Link href="#about">
             <button className="heroButton">About</button>
           </Link>
@@ -110,9 +136,12 @@ export default function Hero({ pageInfo }: Props) {
       <div className="absolute bottom-1/4 left-20 text-data-purple/30 font-mono text-xs animate-float" style={{ animationDelay: '2s' }}>
         model.fit(X_train, y_train)
       </div>
+<<<<<<< HEAD
       <div className="absolute top-10 right-20 text-green-400/30 font-mono text-xs animate-float" style={{ animationDelay: '0.3s' }}>
         df.describe()
       </div>      
+=======
+>>>>>>> c42810109baddd901e8b383737fde41537b08dcb
     </div>
   );
 }

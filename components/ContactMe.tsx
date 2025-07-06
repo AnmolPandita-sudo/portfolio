@@ -35,7 +35,11 @@ export default function ContactMe({}: Props) {
         {"{ contact: 'ready' }"}
       </div>
       <div className="absolute top-32 right-20 text-accent-400/20 font-mono text-sm animate-float" style={{ animationDelay: '1s' }}>
+<<<<<<< HEAD
         console.log(&apos;Let&apos;s connect!&apos;)
+=======
+        console.log('Let\'s connect!')
+>>>>>>> c42810109baddd901e8b383737fde41537b08dcb
       </div>
       <div className="absolute bottom-32 left-20 text-data-purple/20 font-mono text-sm animate-float" style={{ animationDelay: '2s' }}>
         await collaboration()
@@ -49,15 +53,26 @@ export default function ContactMe({}: Props) {
           transition={{ duration: 1 }}
           className="text-center mb-16"
         >
+<<<<<<< HEAD
           <h3 className="section-title mb-6">Let&apos;s Connect</h3>
           <div className="w-24 h-1 bg-gradient-to-r from-primary-500 to-accent-500 mx-auto rounded-full mb-8"></div>
           {/* <p className="text-xl md:text-2xl text-neural-200 font-light max-w-3xl mx-auto leading-relaxed">
+=======
+          <h3 className="section-title mb-6">Let's Connect</h3>
+          <div className="w-24 h-1 bg-gradient-to-r from-primary-500 to-accent-500 mx-auto rounded-full mb-8"></div>
+          <p className="text-xl md:text-2xl text-neural-200 font-light max-w-3xl mx-auto leading-relaxed">
+>>>>>>> c42810109baddd901e8b383737fde41537b08dcb
             Ready to transform your data into{" "}
             <span className="bg-gradient-to-r from-primary-400 to-accent-400 bg-clip-text text-transparent font-semibold">
               actionable insights
             </span>
+<<<<<<< HEAD
             ? Let&apos;s discuss your next data science project.
           </p> */}
+=======
+            ? Let's discuss your next data science project.
+          </p>
+>>>>>>> c42810109baddd901e8b383737fde41537b08dcb
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
@@ -69,18 +84,31 @@ export default function ContactMe({}: Props) {
             className="space-y-8"
           >
             <div className="data-card">
+<<<<<<< HEAD
               <h4 className="text-2xl font-bold bg-gradient-to-r from-primary-300 to-accent-300 bg-clip-text text-transparent font-display">
+=======
+              <h4 className="text-2xl font-bold mb-6 bg-gradient-to-r from-primary-300 to-accent-300 bg-clip-text text-transparent font-display">
+>>>>>>> c42810109baddd901e8b383737fde41537b08dcb
                 Get In Touch
               </h4>
               
               <div className="space-y-6">
                 {[
+<<<<<<< HEAD
                   // {
                   //   icon: PhoneIcon,
                   //   label: "Phone",
                   //   value: "+919796657649",
                   //   href: "tel:+919796657649"
                   // },
+=======
+                  {
+                    icon: PhoneIcon,
+                    label: "Phone",
+                    value: "+919796657649",
+                    href: "tel:+919796657649"
+                  },
+>>>>>>> c42810109baddd901e8b383737fde41537b08dcb
                   {
                     icon: EnvelopeIcon,
                     label: "Email",
@@ -90,7 +118,11 @@ export default function ContactMe({}: Props) {
                   {
                     icon: MapPinIcon,
                     label: "Location",
+<<<<<<< HEAD
                     value: "Pune, Maharashtra, India",
+=======
+                    value: "Jammu & Kashmir, India",
+>>>>>>> c42810109baddd901e8b383737fde41537b08dcb
                     href: null
                   }
                 ].map((contact, index) => (
@@ -154,9 +186,15 @@ export default function ContactMe({}: Props) {
             transition={{ duration: 1, delay: 0.4 }}
             className="data-card"
           >
+<<<<<<< HEAD
             {/* <h4 className="text-2xl font-bold mb-6 bg-gradient-to-r from-primary-300 to-accent-300 bg-clip-text text-transparent font-display">
               Send Message
             </h4> */}
+=======
+            <h4 className="text-2xl font-bold mb-6 bg-gradient-to-r from-primary-300 to-accent-300 bg-clip-text text-transparent font-display">
+              Send Message
+            </h4>
+>>>>>>> c42810109baddd901e8b383737fde41537b08dcb
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
@@ -262,7 +300,11 @@ export default function ContactMe({}: Props) {
         </div>
 
         {/* Bottom CTA */}
+<<<<<<< HEAD
         {/* <motion.div
+=======
+        <motion.div
+>>>>>>> c42810109baddd901e8b383737fde41537b08dcb
           initial={{ y: 50, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 1, delay: 1.4 }}
@@ -275,10 +317,17 @@ export default function ContactMe({}: Props) {
               <div className="w-2 h-2 bg-data-purple rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
             </div>
             <span className="text-neural-300 font-mono text-sm">
+<<<<<<< HEAD
               Let&apos;s turn your data into competitive advantage
             </span>
           </div>
         </motion.div> */}
+=======
+              Let's turn your data into competitive advantage
+            </span>
+          </div>
+        </motion.div>
+>>>>>>> c42810109baddd901e8b383737fde41537b08dcb
       </div>
     </motion.div>
   );

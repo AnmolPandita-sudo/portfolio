@@ -57,7 +57,7 @@ export default function Hero({ pageInfo }: Props) {
         </div>
 
         {/* Main heading with gradient text */}
-        <h1 className="text-3xl md:text-5xl lg:text-7xl font-bold px-10 font-display">
+        <h1 className="text-xl md:text-3xl lg:text-5xl font-bold px-10 font-display">
           <span className="bg-gradient-to-r from-primary-300 via-accent-300 to-data-purple bg-clip-text text-transparent">
             {text}
           </span>
@@ -67,11 +67,11 @@ export default function Hero({ pageInfo }: Props) {
         {/* Data metrics display */}
         <div className="flex flex-wrap justify-center gap-6 mt-8 px-4">
           <div className="text-center">
-            <div className="metric-display">500+</div>
+            <div className="metric-display">100+</div>
             <div className="text-neural-400 text-sm font-mono">Projects Analyzed</div>
           </div>
           <div className="text-center">
-            <div className="metric-display">1M+</div>
+            <div className="metric-display">100K+</div>
             <div className="text-neural-400 text-sm font-mono">Data Points</div>
           </div>
           <div className="text-center">
@@ -81,7 +81,7 @@ export default function Hero({ pageInfo }: Props) {
         </div>
 
         {/* Navigation buttons */}
-        <div className="pt-16 -mb-20 space-x-3 flex flex-wrap justify-center gap-3">
+        <div className="pt-10 md:text-lg text-sm -mb-20 space-x-3 flex flex-wrap justify-center gap-3">
           <Link href="#about">
             <button className="heroButton">About</button>
           </Link>

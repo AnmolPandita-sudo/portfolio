@@ -51,13 +51,6 @@ export default function ContactMe({}: Props) {
         >
           <h3 className="section-title mb-6">Let&apos;s Connect</h3>
           <div className="w-24 h-1 bg-gradient-to-r from-primary-500 to-accent-500 mx-auto rounded-full mb-8"></div>
-          <p className="text-xl md:text-2xl text-neural-200 font-light max-w-3xl mx-auto leading-relaxed">
-            Ready to transform your data into{" "}
-            <span className="bg-gradient-to-r from-primary-400 to-accent-400 bg-clip-text text-transparent font-semibold">
-              actionable insights
-            </span>
-            ? Let&apos;s discuss your next data science project.
-          </p>
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
@@ -75,12 +68,12 @@ export default function ContactMe({}: Props) {
               
               <div className="space-y-6">
                 {[
-                  {
-                    icon: PhoneIcon,
-                    label: "Phone",
-                    value: "+919796657649",
-                    href: "tel:+919796657649"
-                  },
+                  // {
+                  //   icon: PhoneIcon,
+                  //   label: "Phone",
+                  //   value: "+91123456789",
+                  //   href: "tel:+91123456789"
+                  // },
                   {
                     icon: EnvelopeIcon,
                     label: "Email",
@@ -90,7 +83,7 @@ export default function ContactMe({}: Props) {
                   {
                     icon: MapPinIcon,
                     label: "Location",
-                    value: "Jammu & Kashmir, India",
+                    value: "Pune, Maharashtra, India",
                     href: null
                   }
                 ].map((contact, index) => (

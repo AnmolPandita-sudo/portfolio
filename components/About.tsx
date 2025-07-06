@@ -23,25 +23,6 @@ export default function About({ pageInfo }: Props) {
       </div>
 
       <div className="space-y-8 md:space-y-10 px-0 md:px-10 md:mt-32 mt-40 z-10">
-        {/* Stats cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          <div className="data-card text-center">
-            <div className="text-2xl font-bold text-primary-400 font-mono">5+</div>
-            <div className="text-xs text-neural-400">Years Experience</div>
-          </div>
-          <div className="data-card text-center">
-            <div className="text-2xl font-bold text-accent-400 font-mono">50+</div>
-            <div className="text-xs text-neural-400">ML Models</div>
-          </div>
-          <div className="data-card text-center">
-            <div className="text-2xl font-bold text-data-purple font-mono">100+</div>
-            <div className="text-xs text-neural-400">Dashboards</div>
-          </div>
-          <div className="data-card text-center">
-            <div className="text-2xl font-bold text-data-orange font-mono">10+</div>
-            <div className="text-xs text-neural-400">Certifications</div>
-          </div>
-        </div>
 
         <div className="space-y-6">
           <h4 className="text-2xl md:text-4xl font-bold font-display">
@@ -56,25 +37,9 @@ export default function About({ pageInfo }: Props) {
           </h4>
           
           <div className="space-y-4">
-            <p className="text-lg text-neural-200 leading-relaxed">
+            <p className="text-sm md:text-lg text-neural-200 leading-relaxed">
               {pageInfo?.backgroundInformation}
             </p>
-            
-            {/* Specializations */}
-            <div className="flex flex-wrap gap-2 mt-6">
-              {[
-                "Machine Learning",
-                "Statistical Analysis", 
-                "Data Visualization",
-                "Predictive Modeling",
-                "Business Intelligence",
-                "Deep Learning"
-              ].map((skill, index) => (
-                <span key={index} className="skill-badge">
-                  {skill}
-                </span>
-              ))}
-            </div>
           </div>
         </div>
       </div>
@@ -86,23 +51,18 @@ export default function About({ pageInfo }: Props) {
         viewport={{ once: true }}
         className="relative z-10"
       >
-        <div className="relative">
-          <Image
-            className="flex-shrink-0 w-64 h-64 rounded-2xl object-cover md:w-80 md:h-80 xl:w-[400px] xl:h-[500px] border-2 border-primary-500/30 shadow-2xl shadow-primary-500/20"
-            src={urlFor(pageInfo?.profilePic).url()}
-            alt="About"
-            width={400}
-            height={500}
-          />
-          
-          {/* Floating code snippets */}
-          <div className="absolute -top-4 -right-4 code-block text-xs opacity-80">
-            <div className="text-data-cyan">df.describe()</div>
-          </div>
-          <div className="absolute -bottom-4 -left-4 code-block text-xs opacity-80">
-            <div className="text-accent-400">plt.show()</div>
+        <div className="relative md:flex md:items-center">
+          <div className="relative w-72 md:h-92 lg:h-96 xl:h-96 mb-10 md:mb-0 aspect-square md:w-52 lg:w-64 xl:w-72">
+            <Image
+              src={urlFor(pageInfo?.profilePic).url()}
+              alt="About"
+              fill
+              className="rounded-full md:rounded-xl object-cover border-2 border-primary-500/30 shadow-2xl shadow-primary-500/20"
+              sizes="(max-width: 640px) 128px, (max-width: 768px) 128px, (max-width: 1024px) 160px, (max-width: 1280px) 208px, 240px"
+            />
           </div>
         </div>
+
       </motion.div>
     </motion.div>
   );

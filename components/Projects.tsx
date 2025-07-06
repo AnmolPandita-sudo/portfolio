@@ -40,18 +40,10 @@ export default function Projects({ projects }: Props) {
           className="text-center mb-16"
         >
           <h3 className="section-title mb-6">Data Projects</h3>
-          <div className="w-24 h-1 bg-gradient-to-r from-primary-500 to-accent-500 mx-auto rounded-full mb-8"></div>
-          <p className="text-xl md:text-2xl text-neural-200 font-light max-w-3xl mx-auto leading-relaxed">
-            Transforming complex datasets into{" "}
-            <span className="bg-gradient-to-r from-primary-400 to-accent-400 bg-clip-text text-transparent font-semibold">
-              actionable insights
-            </span>{" "}
-            through advanced analytics and machine learning.
-          </p>
         </motion.div>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 mb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-12">
           {projects?.map((project, index) => (
             <motion.div
               key={project._id}
@@ -104,7 +96,7 @@ export default function Projects({ projects }: Props) {
 
                   {/* Technologies */}
                   <div className="flex flex-wrap gap-2 mb-4">
-                    {project?.technologies?.slice(0, 4).map((technology) => (
+                    {project?.technologies?.slice(0, 100).map((technology) => (
                       <div key={technology._id} className="relative group/tech">
                         <Image
                           src={urlFor(technology?.image).url()}
@@ -129,7 +121,9 @@ export default function Projects({ projects }: Props) {
 
                   {/* Project Description */}
                   <p className="text-neural-300 text-sm md:text-base leading-relaxed mb-6 flex-1">
-                    {project.summary}
+                    {project.summary.length > 100
+                      ? `${project.summary.slice(0, 100)}...`
+                      : project.summary}
                   </p>
 
                   {/* Action Buttons */}
@@ -147,19 +141,11 @@ export default function Projects({ projects }: Props) {
                       >
                         <span className="relative z-10 flex items-center justify-center space-x-2">
                           <ArrowTopRightOnSquareIcon className="w-4 h-4" />
-                          <span className="text-sm">View Project</span>
+                          <span className="text-sm">Visit Project</span>
                         </span>
                         <div className="absolute inset-0 bg-gradient-to-r from-accent-500 to-primary-500 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
                       </motion.button>
                     </Link>
-
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="p-3 border border-neural-600/50 hover:border-primary-400/50 rounded-xl transition-all duration-300 hover:bg-primary-500/10 group/code"
-                    >
-                      <CodeBracketIcon className="w-4 h-4 text-neural-400 group-hover/code:text-primary-400 transition-colors duration-300" />
-                    </motion.button>
                   </div>
                 </div>
 
@@ -169,68 +155,6 @@ export default function Projects({ projects }: Props) {
             </motion.div>
           ))}
         </div>
-
-        {/* Bottom Stats Section */}
-        <motion.div
-          initial={{ y: 50, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="data-card max-w-4xl mx-auto"
-        >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            <div className="space-y-2">
-              <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary-400 to-accent-400 bg-clip-text text-transparent font-mono">
-                {projects?.length || 0}+
-              </div>
-              <div className="text-neural-400 text-sm font-mono uppercase tracking-wider">
-                Projects Completed
-              </div>
-            </div>
-            <div className="space-y-2">
-              <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-accent-400 to-data-purple bg-clip-text text-transparent font-mono">
-                15+
-              </div>
-              <div className="text-neural-400 text-sm font-mono uppercase tracking-wider">
-                Technologies Used
-              </div>
-            </div>
-            <div className="space-y-2">
-              <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-data-purple to-data-orange bg-clip-text text-transparent font-mono">
-                100K+
-              </div>
-              <div className="text-neural-400 text-sm font-mono uppercase tracking-wider">
-                Data Points Analyzed
-              </div>
-            </div>
-            <div className="space-y-2">
-              <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-data-orange to-primary-400 bg-clip-text text-transparent font-mono">
-                95%
-              </div>
-              <div className="text-neural-400 text-sm font-mono uppercase tracking-wider">
-                Client Satisfaction
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Call to Action */}
-        <motion.div
-          initial={{ y: 50, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{ duration: 1, delay: 0.7 }}
-          className="text-center mt-16"
-        >
-          <div className="inline-flex items-center space-x-4 px-8 py-4 bg-neural-900/40 border border-neural-700/50 rounded-2xl backdrop-blur-sm">
-            <div className="flex space-x-2">
-              <div className="w-2 h-2 bg-accent-400 rounded-full animate-pulse"></div>
-              <div className="w-2 h-2 bg-primary-400 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-              <div className="w-2 h-2 bg-data-purple rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
-            </div>
-            <span className="text-neural-300 font-mono text-sm">
-              Ready to collaborate on your next data project?
-            </span>
-          </div>
-        </motion.div>
       </div>
     </motion.div>
   );

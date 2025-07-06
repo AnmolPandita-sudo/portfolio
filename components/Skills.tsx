@@ -88,29 +88,10 @@ export default function Skills({ skills }: Props) {
                       </div>
                     </div>
                   </div>
-
-                  {/* Animated progress bar */}
-                  <motion.div 
-                    className="absolute -bottom-2 left-0 right-0 h-1 bg-neural-700 rounded-full overflow-hidden"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ delay: index * 0.05 + 0.5 }}
-                  >
-                    <motion.div
-                      className={`h-full bg-gradient-to-r ${getSkillColor(skill.progress)} rounded-full`}
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${skill.progress}%` }}
-                      transition={{ 
-                        duration: 1.5, 
-                        delay: index * 0.05 + 0.7,
-                        ease: "easeOut"
-                      }}
-                    />
-                  </motion.div>
                 </div>
                 
                 {/* Skill Title */}
-                <div className="mt-4 md:mt-6">
+                <div className="mt-3">
                   <p className="text-xs sm:text-sm md:text-base text-neural-200 font-medium text-center leading-tight font-mono group-hover:text-primary-300 transition-colors duration-300">
                     {skill.title}
                   </p>
@@ -142,33 +123,6 @@ export default function Skills({ skills }: Props) {
             ))}
           </div>
         </div>
-
-        {/* Skills Legend */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.8 }}
-          className="mt-16"
-        >
-          <div className="flex flex-wrap justify-center gap-4 lg:gap-8 data-card max-w-4xl mx-auto">
-            <div className="flex items-center space-x-3">
-              <div className="w-4 h-4 bg-gradient-to-r from-accent-400 to-accent-600 rounded-full"></div>
-              <span className="text-sm lg:text-base text-neural-200 font-mono">Expert (90%+)</span>
-            </div>
-            <div className="flex items-center space-x-3">
-              <div className="w-4 h-4 bg-gradient-to-r from-primary-400 to-primary-600 rounded-full"></div>
-              <span className="text-sm lg:text-base text-neural-200 font-mono">Advanced (80-89%)</span>
-            </div>
-            <div className="flex items-center space-x-3">
-              <div className="w-4 h-4 bg-gradient-to-r from-data-purple to-purple-600 rounded-full"></div>
-              <span className="text-sm lg:text-base text-neural-200 font-mono">Proficient (70-79%)</span>
-            </div>
-            <div className="flex items-center space-x-3">
-              <div className="w-4 h-4 bg-gradient-to-r from-data-orange to-orange-600 rounded-full"></div>
-              <span className="text-sm lg:text-base text-neural-200 font-mono">Intermediate (60-69%)</span>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </motion.div>
   );

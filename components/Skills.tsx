@@ -20,13 +20,13 @@ export default function Skills({ skills }: Props) {
         Hover over a skill for current proficiency
       </h3>
 
-      <div className="grid grid-cols-4 md:grid-cols-8 gap-4 md:gap-0 md:space-y-5">
-        {skills?.slice(0, skills.length / 2).map((skill) => (
-          <Skill key={skill._id} skill={skill} />
-        ))}
-
-        {skills?.slice(skills.length / 2, skills.length).map((skill) => (
-          <Skill key={skill._id} skill={skill} directionLeft />
+      <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 md:gap-6 lg:gap-8 mt-20 px-4">
+        {skills?.map((skill, index) => (
+          <Skill 
+            key={skill._id} 
+            skill={skill} 
+            directionLeft={index % 2 === 0}
+          />
         ))}
       </div>
     </motion.div>

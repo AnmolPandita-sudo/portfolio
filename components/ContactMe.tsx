@@ -32,22 +32,22 @@ export default function ContactMe({}: Props) {
       <div className="flex flex-col space-y-4 md:space-y-5 lg:space-y-6 xl:space-y-6 2xl:space-y-10 sm:mt-10 md:mt-5 xl:mt-20">
         <h4 className="text-xl lg:text-2xl 2xl:text-3xl font-semibold text-center md:mt-4">
           I have got just what you need.{" "}
-          <span className="decoration-darkGreen/50 underline">Lets talk.</span>
+          <span className="decoration-accent-600/50 underline">Lets talk.</span>
         </h4>
 
         <div className="space-y-1 md:space-y-3 lg:space-y-3 xl:space-y-3 2xl:space-y-5">
           <div className="flex items-center space-x-5 justify-center">
-            <PhoneIcon className="text-darkGreen h-7 w-7 animate-pulse" />
+            <PhoneIcon className="text-accent-600 h-7 w-7 animate-pulse" />
             <p className="text-lg md:text-2xl lg:text-2xl">+919796657649</p>
           </div>
           <div className="flex items-center space-x-5 justify-center">
-            <EnvelopeIcon className="text-darkGreen h-7 w-7 animate-pulse" />
+            <EnvelopeIcon className="text-accent-600 h-7 w-7 animate-pulse" />
             <p className="text-lg md:text-2xl lg:text-2xl">
               anmol.ap12@gmail.com
             </p>
           </div>
           <div className="flex items-center space-x-5 justify-center">
-            <MapPinIcon className="text-darkGreen h-7 w-7 animate-pulse" />
+            <MapPinIcon className="text-accent-600 h-7 w-7 animate-pulse" />
             <p className="text-lg md:text-2xl lg:text-2xl">Jammu & Kashmir</p>
           </div>
         </div>

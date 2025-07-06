@@ -20,7 +20,7 @@ export default function Projects({ projects }: Props) {
         Projects
       </h3>
 
-      <div className="relative md:top-4 w-full flex overflow-x-scroll overflow-y-hidden snap-x snap-mandatory z-20 scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-darkGreen/80 md:mb-0 mb-14">
+      <div className="relative md:top-4 w-full flex overflow-x-scroll overflow-y-hidden snap-x snap-mandatory z-20 scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-accent-600/80 md:mb-0 mb-14">
         {projects?.map((project, i) => (
           <div
             key={project._id}

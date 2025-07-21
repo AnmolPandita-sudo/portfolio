@@ -5,10 +5,16 @@ import { Project } from "../typings";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowTopRightOnSquareIcon, CodeBracketIcon, ChartBarIcon } from "@heroicons/react/24/outline";
+import { useState, useEffect, useRef } from "react";
 
 type Props = { projects: Project[] };
 
 export default function Projects({ projects }: Props) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [showLeftArrow, setShowLeftArrow] = useState(false);
+  const [showRightArrow, setShowRightArrow] = useState(true);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
   // Sort projects by addition order (most recently added first)
   // This ensures newly added projects always appear at the top, regardless of their actual dates
   const sortedProjects = projects?.sort((a, b) => {
@@ -17,6 +23,50 @@ export default function Projects({ projects }: Props) {
     return dateB.getTime() - dateA.getTime();
   }) || [];
 
+  // Handle scroll position and arrow visibility
+  const handleScroll = () => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+      setShowLeftArrow(scrollLeft > 0);
+      setShowRightArrow(scrollLeft < scrollWidth - clientWidth - 10);
+      
+      // Update current index based on scroll position
+      const projectHeight = 120; // Approximate project card height including margin
+      const newIndex = Math.round(scrollLeft / (clientWidth * 0.8));
+      setCurrentIndex(Math.min(newIndex, sortedProjects.length - 1));
+    }
+  };
+
+  // Scroll to specific project
+  const scrollToProject = (index: number) => {
+    if (scrollContainerRef.current) {
+      const { clientWidth } = scrollContainerRef.current;
+      scrollContainerRef.current.scrollTo({
+        left: index * (clientWidth * 0.8),
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  // Arrow navigation
+  const scrollLeft = () => {
+    const newIndex = Math.max(currentIndex - 1, 0);
+    scrollToProject(newIndex);
+  };
+
+  const scrollRight = () => {
+    const newIndex = Math.min(currentIndex + 1, sortedProjects.length - 1);
+    scrollToProject(newIndex);
+  };
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      container.addEventListener('scroll', handleScroll);
+      handleScroll(); // Initial check
+      return () => container.removeEventListener('scroll', handleScroll);
+    }
+  }, []);
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -39,7 +89,7 @@ export default function Projects({ projects }: Props) {
         plt.figure(figsize=(12,8))
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto w-full">
+      <div className="relative z-10 max-w-7xl mx-auto w-full">
         {/* Header Section */}
         <motion.div
           initial={{ y: -50, opacity: 0 }}
@@ -51,27 +101,59 @@ export default function Projects({ projects }: Props) {
           <div className="w-24 h-1 bg-gradient-to-r from-primary-500 to-accent-500 mx-auto rounded-full mb-8"></div>
         </motion.div>
 
-        {/* Projects List - Single Row Format */}
-        <div className="space-y-8">
-          {sortedProjects.map((project, index) => (
-            <motion.div
-              key={project._id}
-              initial={{ y: 50, opacity: 0, x: -20 }}
-              whileInView={{ y: 0, opacity: 1, x: 0 }}
-              transition={{ 
-                duration: 0.6, 
-                delay: index * 0.1,
-                type: "spring",
-                stiffness: 100
-              }}
-              whileHover={{ scale: 1.02, x: 10 }}
-              className="group relative"
+        {/* Swipe Container for Projects */}
+        <div className="swipe-container relative h-96">
+          {/* Gradient Fade Indicators */}
+          <div className={`swipe-fade-left ${showLeftArrow ? 'opacity-100' : 'opacity-0'}`}></div>
+          <div className={`swipe-fade-right ${showRightArrow ? 'opacity-100' : 'opacity-0'}`}></div>
+
+          {/* Navigation Arrows */}
+          {showLeftArrow && (
+            <button 
+              onClick={scrollLeft}
+              className="swipe-arrow swipe-arrow-left"
+              aria-label="Previous project"
             >
-              <div className="data-card text-left hover:border-primary-500/70 transition-all duration-500 hover:shadow-2xl hover:shadow-primary-500/20">
-                <div className="flex items-start space-x-6">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+          )}
+          
+          {showRightArrow && (
+            <button 
+              onClick={scrollRight}
+              className="swipe-arrow swipe-arrow-right"
+              aria-label="Next project"
+            >
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          )}
+
+          {/* Projects Swipe Wrapper */}
+          <div 
+            ref={scrollContainerRef}
+            className="swipe-wrapper h-full px-10 space-x-8"
+          >
+            {sortedProjects.map((project, index) => (
+              <motion.div
+                key={project._id}
+                initial={{ y: 50, opacity: 0, x: -20 }}
+                whileInView={{ y: 0, opacity: 1, x: 0 }}
+                transition={{ 
+                  duration: 0.6, 
+                  delay: index * 0.1,
+                  type: "spring",
+                  stiffness: 100
+                }}
+                className="swipe-card min-w-[600px] md:min-w-[700px] group relative p-8"
+              >
+                <div className="flex items-start space-x-6 h-full">
                   {/* Project Image */}
                   <div className="flex-shrink-0">
-                    <div className="relative w-24 h-24 md:w-32 md:h-32 overflow-hidden rounded-xl">
+                    <div className="relative w-32 h-32 md:w-40 md:h-40 overflow-hidden rounded-xl">
                       <Image
                         src={urlFor(project?.image).url()}
                         alt={project.title}
@@ -80,54 +162,54 @@ export default function Projects({ projects }: Props) {
                       />
                       
                       {/* Project number overlay */}
-                      <div className="absolute top-2 left-2">
-                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-bold bg-primary-500/90 text-white font-mono">
+                      <div className="absolute top-3 left-3">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-primary-500/90 text-white font-mono">
                           {String(index + 1).padStart(2, '0')}
                         </span>
                       </div>
 
                       {/* Data visualization icon */}
-                      <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <div className="w-6 h-6 bg-accent-500/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-accent-400/30">
-                          <ChartBarIcon className="w-3 h-3 text-accent-400" />
+                      <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div className="w-8 h-8 bg-accent-500/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-accent-400/30">
+                          <ChartBarIcon className="w-4 h-4 text-accent-400" />
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  {/* Project Content - Single Row Format */}
-                  <div className="flex-1 min-w-0">
-                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                  {/* Project Content */}
+                  <div className="flex-1 min-w-0 text-left">
+                    <div className="flex flex-col justify-between h-full">
                       {/* Main Project Information */}
                       <div className="flex-1">
-                        <div className="flex flex-wrap items-center gap-3 mb-3">
+                        <div className="flex flex-wrap items-center gap-4 mb-4">
                           {/* Project Title */}
-                          <h4 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-primary-300 to-accent-300 bg-clip-text text-transparent font-display group-hover:from-primary-200 group-hover:to-accent-200 transition-all duration-300">
+                          <h4 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary-300 to-accent-300 bg-clip-text text-transparent font-display group-hover:from-primary-200 group-hover:to-accent-200 transition-all duration-300">
                             {project.title}
                           </h4>
 
                           {/* Technologies - Inline */}
-                          <div className="flex items-center space-x-2">
+                          <div className="flex items-center space-x-3">
                             <span className="text-neural-400 text-sm font-mono">using</span>
-                            <div className="flex space-x-1">
-                              {project?.technologies?.slice(0, 4).map((technology) => (
+                            <div className="flex space-x-2">
+                              {project?.technologies?.slice(0, 5).map((technology) => (
                                 <div key={technology._id} className="relative group/tech">
                                   <Image
                                     src={urlFor(technology?.image).url()}
                                     alt={technology.title}
-                                    width={20}
-                                    height={20}
+                                    width={24}
+                                    height={24}
                                     className="rounded border border-neural-600/50 hover:border-primary-400/50 transition-colors duration-300"
                                   />
-                                  <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-neural-800 text-neural-200 text-xs px-2 py-1 rounded opacity-0 group-hover/tech:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap z-10">
+                                  <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-neural-800 text-neural-200 text-xs px-2 py-1 rounded opacity-0 group-hover/tech:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap z-10">
                                     {technology.title}
                                   </div>
                                 </div>
                               ))}
-                              {project?.technologies?.length > 4 && (
-                                <div className="w-5 h-5 rounded border border-neural-600/50 bg-neural-800/50 flex items-center justify-center">
+                              {project?.technologies?.length > 5 && (
+                                <div className="w-6 h-6 rounded border border-neural-600/50 bg-neural-800/50 flex items-center justify-center">
                                   <span className="text-xs text-neural-400 font-mono">
-                                    +{project.technologies.length - 4}
+                                    +{project.technologies.length - 5}
                                   </span>
                                 </div>
                               )}
@@ -135,8 +217,8 @@ export default function Projects({ projects }: Props) {
                           </div>
                         </div>
 
-                        {/* Project Description - Single Row */}
-                        <p className="text-neural-300 text-sm md:text-base leading-relaxed">
+                        {/* Project Description */}
+                        <p className="text-neural-300 text-base md:text-lg leading-relaxed mb-6">
                           <span className="font-medium text-neural-200">Project:</span> {project.summary}
                         </p>
                       </div>
@@ -151,11 +233,11 @@ export default function Projects({ projects }: Props) {
                           <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className="relative overflow-hidden bg-gradient-to-r from-primary-500 to-accent-500 hover:from-primary-600 hover:to-accent-600 text-white font-semibold py-2 px-4 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-primary-500/25 group/btn"
+                            className="relative overflow-hidden bg-gradient-to-r from-primary-500 to-accent-500 hover:from-primary-600 hover:to-accent-600 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-primary-500/25 group/btn"
                           >
                             <span className="relative z-10 flex items-center space-x-2">
-                              <ArrowTopRightOnSquareIcon className="w-4 h-4" />
-                              <span className="text-sm">View</span>
+                              <ArrowTopRightOnSquareIcon className="w-5 h-5" />
+                              <span>View Project</span>
                             </span>
                             <div className="absolute inset-0 bg-gradient-to-r from-accent-500 to-primary-500 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
                           </motion.button>
@@ -164,12 +246,30 @@ export default function Projects({ projects }: Props) {
                     </div>
                   </div>
                 </div>
+              </motion.div>
+            ))}
+          </div>
 
-                {/* Hover Effect Border */}
-                <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-gradient-to-r group-hover:from-primary-500/50 group-hover:to-accent-500/50 transition-all duration-300 pointer-events-none"></div>
-              </div>
-            </motion.div>
-          ))}
+          {/* Progress Dots */}
+          {sortedProjects.length > 1 && (
+            <div className="swipe-dots">
+              {sortedProjects.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => scrollToProject(index)}
+                  className={`swipe-dot ${index === currentIndex ? 'active' : ''}`}
+                  aria-label={`Go to project ${index + 1}`}
+                />
+              ))}
+            </div>
+          )}
+
+          {/* Swipe Instruction */}
+          {sortedProjects.length > 1 && (
+            <div className="swipe-instruction">
+              Swipe to explore projects
+            </div>
+          )}
         </div>
 
         {/* Bottom Summary */}

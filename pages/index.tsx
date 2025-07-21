@@ -17,6 +17,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { BsFillArrowUpCircleFill } from "react-icons/bs";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 
 type Props = {
   pageInfo: PageInfo;
@@ -27,11 +28,33 @@ type Props = {
 };
 
 const Home = ({ pageInfo, experiences, projects, skills, socials }: Props) => {
+  // Handle smooth scrolling to sections without hash URLs
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+      // Clean the URL by removing any hash
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+  };
+
+  // Handle initial hash navigation on page load (if someone bookmarks a hash URL)
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      // Small delay to ensure page is fully loaded
+      setTimeout(() => {
+        const sectionId = hash.substring(1); // Remove the # symbol
+        scrollToSection(sectionId);
+      }, 100);
+    }
+  }, []);
+
   const handleScrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    scrollToSection('hero');
   };
   
   return (
@@ -44,11 +67,11 @@ const Home = ({ pageInfo, experiences, projects, skills, socials }: Props) => {
       </Head>
 
       {/* Header */}
-      <Header socials={socials} />
+      <Header socials={socials} scrollToSection={scrollToSection} />
 
       {/* Hero */}
       <section id="hero" className="snap-start">
-        <Hero pageInfo={pageInfo} />
+        <Hero pageInfo={pageInfo} scrollToSection={scrollToSection} />
       </section>
 
       {/* About */}
@@ -72,25 +95,23 @@ const Home = ({ pageInfo, experiences, projects, skills, socials }: Props) => {
       </section>
 
       {/* Contact */}
-      <section id="contact" className="snap-start">
+      <section id="contactme" className="snap-start">
         <ContactMe />
       </section>
 
       {/* Scroll to top button */}
-      <Link href="#hero">
-        <footer className="sticky bottom-16 md:bottom-4 w-full cursor-pointer z-50">
-          <div className="fixed bottom-4 right-4">
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={handleScrollToTop}
-              className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-r from-primary-500 to-accent-500 rounded-full flex items-center justify-center shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/40 transition-all duration-300 backdrop-blur-sm border border-primary-400/30"
-            >
-              <BsFillArrowUpCircleFill className="w-6 h-6 md:w-7 md:h-7 text-white" />
-            </motion.button>
-          </div>
-        </footer>
-      </Link>
+      <footer className="sticky bottom-16 md:bottom-4 w-full cursor-pointer z-50">
+        <div className="fixed bottom-4 right-4">
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={handleScrollToTop}
+            className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-r from-primary-500 to-accent-500 rounded-full flex items-center justify-center shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/40 transition-all duration-300 backdrop-blur-sm border border-primary-400/30"
+          >
+            <BsFillArrowUpCircleFill className="w-6 h-6 md:w-7 md:h-7 text-white" />
+          </motion.button>
+        </div>
+      </footer>
     </div>
   );
 };

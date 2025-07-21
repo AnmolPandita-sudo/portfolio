@@ -8,12 +8,17 @@ import { Social } from "../typings";
 
 type Props = {
   socials: Social[];
+  scrollToSection: (sectionId: string) => void;
 };
 
-export default function Header({ socials }: Props) {
+export default function Header({ socials, scrollToSection }: Props) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    e.preventDefault();
+    scrollToSection(sectionId);
+  };
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-neural-900/80 border-b border-neural-700/50">
@@ -76,7 +81,7 @@ export default function Header({ socials }: Props) {
 
             {/* Right side: Contact Button + Hamburger */}
             <div className="flex items-center space-x-4">
-              <Link href="#contact">
+              <a href="#contactme" onClick={(e) => handleNavClick(e, 'contactme')}>
                 <motion.button
                   initial={{ x: 50, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
@@ -98,7 +103,7 @@ export default function Header({ socials }: Props) {
                   </span>
                   <div className="absolute inset-0 bg-gradient-to-r from-accent-500 to-primary-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </motion.button>
-              </Link>
+              </a>
 
               {/* Hamburger menu */}
               <motion.button

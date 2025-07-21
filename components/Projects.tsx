@@ -44,7 +44,7 @@ export default function Projects({ projects }: Props) {
         <motion.div
           initial={{ y: -50, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0 }}
+          transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
           <h3 className="section-title mb-6">Data Projects</h3>

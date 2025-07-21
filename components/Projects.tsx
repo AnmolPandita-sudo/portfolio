@@ -9,7 +9,8 @@ import { ArrowTopRightOnSquareIcon, CodeBracketIcon, ChartBarIcon } from "@heroi
 type Props = { projects: Project[] };
 
 export default function Projects({ projects }: Props) {
-  // Sort projects in reverse chronological order (most recent first) to match work experience section
+  // Sort projects by addition order (most recently added first)
+  // This ensures newly added projects always appear at the top, regardless of their actual dates
   const sortedProjects = projects?.sort((a, b) => {
     const dateA = new Date(a._createdAt);
     const dateB = new Date(b._createdAt);

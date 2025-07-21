@@ -6,23 +6,12 @@ import ExperienceCard from "./ExperienceCard";
 type Props = { experiences: Experience[] };
 
 export default function WorkExperience({ experiences }: Props) {
-  // Sort experiences in reverse chronological order (most recent first)
+  // Sort experiences by addition order (most recently added first)
+  // This ensures newly added experiences always appear at the top, regardless of their actual dates
   const sortedExperiences = experiences?.sort((a, b) => {
-    // Handle currently working positions - they should appear first
-    if (a.isCurrentlyWorkingHere && !b.isCurrentlyWorkingHere) return -1;
-    if (!a.isCurrentlyWorkingHere && b.isCurrentlyWorkingHere) return 1;
-    
-    // For positions with end dates, compare end dates
-    if (!a.isCurrentlyWorkingHere && !b.isCurrentlyWorkingHere) {
-      const dateA = new Date(a.dateEnded);
-      const dateB = new Date(b.dateEnded);
-      return dateB.getTime() - dateA.getTime();
-    }
-    
-    // For current positions, compare start dates
-    const startDateA = new Date(a.dateStarted);
-    const startDateB = new Date(b.dateStarted);
-    return startDateB.getTime() - startDateA.getTime();
+    const createdAtA = new Date(a._createdAt);
+    const createdAtB = new Date(b._createdAt);
+    return createdAtB.getTime() - createdAtA.getTime();
   }) || [];
 
   return (

@@ -9,6 +9,13 @@ import { ArrowTopRightOnSquareIcon, CodeBracketIcon, ChartBarIcon } from "@heroi
 type Props = { projects: Project[] };
 
 export default function Projects({ projects }: Props) {
+  // Sort projects in reverse chronological order (most recent first) to match work experience section
+  const sortedProjects = projects?.sort((a, b) => {
+    const dateA = new Date(a._createdAt);
+    const dateB = new Date(b._createdAt);
+    return dateB.getTime() - dateA.getTime();
+  }) || [];
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -44,7 +51,7 @@ export default function Projects({ projects }: Props) {
 
         {/* Projects Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-12">
-          {projects?.map((project, index) => (
+          {sortedProjects.map((project, index) => (
             <motion.div
               key={project._id}
               initial={{ y: 50, opacity: 0, scale: 0.9 }}

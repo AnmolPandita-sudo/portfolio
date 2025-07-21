@@ -6,6 +6,25 @@ import ExperienceCard from "./ExperienceCard";
 type Props = { experiences: Experience[] };
 
 export default function WorkExperience({ experiences }: Props) {
+  // Sort experiences in reverse chronological order (most recent first)
+  const sortedExperiences = experiences?.sort((a, b) => {
+    // Handle currently working positions - they should appear first
+    if (a.isCurrentlyWorkingHere && !b.isCurrentlyWorkingHere) return -1;
+    if (!a.isCurrentlyWorkingHere && b.isCurrentlyWorkingHere) return 1;
+    
+    // For positions with end dates, compare end dates
+    if (!a.isCurrentlyWorkingHere && !b.isCurrentlyWorkingHere) {
+      const dateA = new Date(a.dateEnded);
+      const dateB = new Date(b.dateEnded);
+      return dateB.getTime() - dateA.getTime();
+    }
+    
+    // For current positions, compare start dates
+    const startDateA = new Date(a.dateStarted);
+    const startDateB = new Date(b.dateStarted);
+    return startDateB.getTime() - startDateA.getTime();
+  }) || [];
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -20,7 +39,7 @@ export default function WorkExperience({ experiences }: Props) {
 
       {/* Experience cards */}
       <div className="w-full h-4/5 md:h-5/6  flex content-center  overflow-x-scroll p-10 space-x-5 snap-x snap-center snap-mandatory scrollbar-thin scrollbar-track-[#2d2c2c] scrollbar-thumb-accent-600/80 mt-28 ">
-        {experiences?.map((experience) => (
+        {sortedExperiences.map((experience) => (
           <ExperienceCard key={experience._id} experience={experience} />
         ))}
       </div>

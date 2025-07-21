@@ -6,6 +6,14 @@ import ExperienceCard from "./ExperienceCard";
 type Props = { experiences: Experience[] };
 
 export default function WorkExperience({ experiences }: Props) {
+  // Sort experiences by addition order (most recently added first)
+  // This ensures newly added experiences always appear at the top, regardless of their actual dates
+  const sortedExperiences = experiences?.sort((a, b) => {
+    const createdAtA = new Date(a._createdAt);
+    const createdAtB = new Date(b._createdAt);
+    return createdAtB.getTime() - createdAtA.getTime();
+  }) || [];
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -20,7 +28,7 @@ export default function WorkExperience({ experiences }: Props) {
 
       {/* Experience cards */}
       <div className="w-full h-4/5 md:h-5/6  flex content-center  overflow-x-scroll p-10 space-x-5 snap-x snap-center snap-mandatory scrollbar-thin scrollbar-track-[#2d2c2c] scrollbar-thumb-accent-600/80 mt-28 ">
-        {experiences?.map((experience) => (
+        {sortedExperiences.map((experience) => (
           <ExperienceCard key={experience._id} experience={experience} />
         ))}
       </div>

@@ -7,9 +7,12 @@ import { PageInfo } from "../typings";
 import BackgroundCircles from "./BackgroundCircles";
 import Image from "next/image";
 
-type Props = { pageInfo: PageInfo };
+type Props = { 
+  pageInfo: PageInfo;
+  scrollToSection: (sectionId: string) => void;
+};
 
-export default function Hero({ pageInfo }: Props) {
+export default function Hero({ pageInfo, scrollToSection }: Props) {
   const [text, count] = useTypewriter({
     words: [
       `Hi, I'm ${pageInfo?.name}`,
@@ -22,6 +25,10 @@ export default function Hero({ pageInfo }: Props) {
     delaySpeed: 2000,
   });
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    e.preventDefault();
+    scrollToSection(sectionId);
+  };
   return (
     <div className="h-screen flex flex-col space-y-8 items-center justify-center text-center overflow-hidden relative">
       {/* Background grid pattern */}
@@ -82,21 +89,21 @@ export default function Hero({ pageInfo }: Props) {
 
         {/* Navigation buttons */}
         <div className="pt-10 md:text-lg text-sm -mb-20 space-x-3 flex flex-wrap justify-center gap-3">
-          <Link href="#about">
+          <a href="#about" onClick={(e) => handleNavClick(e, 'about')}>
             <button className="heroButton">About</button>
-          </Link>
-          <Link href="#experience">
+          </a>
+          <a href="#experience" onClick={(e) => handleNavClick(e, 'experience')}>
             <button className="heroButton">Experience</button>
-          </Link>
-          <Link href="#skills">
+          </a>
+          <a href="#skills" onClick={(e) => handleNavClick(e, 'skills')}>
             <button className="heroButton">Skills</button>
-          </Link>
-          <Link href="#projects">
+          </a>
+          <a href="#projects" onClick={(e) => handleNavClick(e, 'projects')}>
             <button className="heroButton">Projects</button>
-          </Link>
-          <Link href="#contactme">
+          </a>
+          <a href="#contactme" onClick={(e) => handleNavClick(e, 'contactme')}>
             <button className="heroButton">Contact</button>
-          </Link>
+          </a>
         </div>
       </div>
 

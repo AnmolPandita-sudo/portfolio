@@ -28,7 +28,7 @@ export default function Skills({ skills }: Props) {
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       transition={{ duration: 1.5 }}
-      className="min-h-screen flex relative flex-col text-center max-w-[2000px] mx-auto items-center justify-center px-6 md:px-10 py-10"
+      className="min-h-screen flex relative flex-col text-center max-w-[2000px] mx-auto items-center justify-center px-6 md:px-10"
     >
       {/* Background elements */}
       <div className="absolute inset-0 analytics-gradient opacity-20" />

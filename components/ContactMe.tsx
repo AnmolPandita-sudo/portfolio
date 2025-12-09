@@ -2,8 +2,11 @@
 import { PhoneIcon, MapPinIcon, EnvelopeIcon } from "@heroicons/react/24/solid";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { motion } from "framer-motion";
+import { PageInfo } from "../typings";
 
-type Props = {};
+type Props = { 
+  pageInfo: PageInfo;
+};
 
 type Inputs = {
   name: string;
@@ -12,7 +15,7 @@ type Inputs = {
   message: string;
 };
 
-export default function ContactMe({}: Props) {
+export default function ContactMe({ pageInfo }: Props) {
   const { register, handleSubmit } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (formData) => {
     window.location.href = `mailto:anmol.ap12@gmail.com?subject=${formData.subject}&body=Hi, my name is ${formData.name}.${formData.message}`;
@@ -83,8 +86,10 @@ export default function ContactMe({}: Props) {
                   {
                     icon: MapPinIcon,
                     label: "Location",
-                    value: "Pune, Maharashtra, India",
-                    href: null
+                    value: pageInfo?.location ?? "Not specified",
+                    href: pageInfo?.location
+                      ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(pageInfo.location)}`
+                      : null
                   }
                 ].map((contact, index) => (
                   <motion.div

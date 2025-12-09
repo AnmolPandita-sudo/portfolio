@@ -21,7 +21,7 @@ export default function Header({ socials, scrollToSection }: Props) {
   };
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-neural-900/80 border-b border-neural-700/50">
+      <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-neutral-900/80 border-b border-neutral-700/50">
         <div className="max-w-7xl mx-auto px-6 py-4 relative">
           <div className="flex items-center justify-between md:justify-evenly relative">
             {/* Logo/Brand */}
@@ -45,7 +45,7 @@ export default function Header({ socials, scrollToSection }: Props) {
                 <h1 className="text-xl font-bold bg-gradient-to-r from-primary-300 to-accent-300 bg-clip-text text-transparent font-display">
                   Business Analyst
                 </h1>
-                <p className="text-xs text-neural-400 font-mono">Analytics • ML • Insights</p>
+                <p className="text-xs text-neutral-400 font-mono">Analytics • ML • Insights</p>
               </div>
             </div>
 
@@ -87,7 +87,7 @@ export default function Header({ socials, scrollToSection }: Props) {
 
             {/* Right side: Contact Button + Hamburger */}
             <div className="flex items-center space-x-4">
-              <a href="#contactme" onClick={(e) => handleNavClick(e, 'contactme')}>
+              <a onClick={(e) => handleNavClick(e, "contactme")}>
                 <motion.button
                   initial={{ x: 50, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
@@ -117,7 +117,7 @@ export default function Header({ socials, scrollToSection }: Props) {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.8 }}
                 onClick={() => setMenuOpen(!menuOpen)}
-                className="sm:hidden p-2 text-neural-300 hover:text-primary-300 transition-colors duration-300"
+                className="sm:hidden p-2 text-neutral-300 hover:text-primary-300 transition-colors duration-300"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -139,7 +139,7 @@ export default function Header({ socials, scrollToSection }: Props) {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ duration: 0.4, ease: "easeInOut" }}
-              className="fixed top-0 right-0 h-screen w-auto bg-neural-900 z-50 p-6 shadow-lg border-l border-neural-700 sm:hidden"
+              className="fixed top-0 right-0 h-screen w-auto bg-neutral-900 z-50 p-6 shadow-lg border-l border-neutral-700 sm:hidden"
             >
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-lg font-semibold text-white">Connect</h2>
